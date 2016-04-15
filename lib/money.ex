@@ -279,13 +279,11 @@ defmodule Money do
 
   @spec add(t, t|integer) :: t
   def add(%Money{currency: cur1} = a, %Money{currency: cur1} = b) do
-    x = a.amount + b.amount
-    Money.new(x, cur1)
+    a.amount + b.amount |> new(cur1)
   end
 
   def add(%Money{currency: cur1} = a, addend) when is_integer(addend) do
-    x = a.amount + addend
-    Money.new(x, cur1)
+    a.amount + addend |> new(cur1)
   end
 
   def add(a, b) do
@@ -294,13 +292,11 @@ defmodule Money do
 
   @spec subtract(t, t|integer) :: t
   def subtract(%Money{currency: cur1} = a, %Money{currency: cur1} = b) do
-    x = a.amount - b.amount
-    Money.new(x, cur1)
+    a.amount - b.amount |> new(cur1)
   end
 
   def subtract(%Money{currency: cur1} = a, subtrahend) when is_integer(subtrahend) do
-    x = a.amount - subtrahend
-    Money.new(x, cur1)
+    a.amount - subtrahend |> new(cur1)
   end
 
   def subtract(a, b) do
@@ -309,13 +305,11 @@ defmodule Money do
 
   @spec multiply(t, t|integer) :: t
   def multiply(%Money{currency: cur1} = a, %Money{currency: cur1} = b) do
-    x = a.amount * b.amount
-    Money.new(x, cur1)
+    a.amount * b.amount |> new(cur1)
   end
 
   def multiply(%Money{currency: cur1} = a, multiplier) when is_integer(multiplier) do
-    x = a.amount * multiplier
-    Money.new(x, cur1)
+    a.amount * multiplier |> new(cur1)
   end
 
   def multiply(a, b) do
@@ -324,13 +318,11 @@ defmodule Money do
 
   @spec divide(t, t|integer) :: t
   def divide(%Money{currency: cur1} = a, %Money{currency: cur1} = b) do
-    x = round(a.amount / b.amount)
-    Money.new(x, cur1)
+    round(a.amount / b.amount) |> new(cur1)
   end
 
   def divide(%Money{currency: cur1} = a, divisor) when is_integer(divisor) do
-    x = round(a.amount / divisor)
-    Money.new(x, cur1)
+    round(a.amount / divisor) |> new(cur1)
   end
 
   def divide(a, b) do
