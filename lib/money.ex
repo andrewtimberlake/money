@@ -216,9 +216,8 @@ defmodule Money do
 
   def currency_name(currency) do
     case currency_exist?(currency) do
-      true ->
-        get_currency(currency) |> Dict.get(:name)
-       _ -> nil
+      true -> get_currency(currency) |> Dict.get(:name)
+       _   -> nil
     end
   end
 
@@ -228,9 +227,8 @@ defmodule Money do
 
   def currency_symbol(currency) do
     case currency_exist?(currency) do
-      true ->
-        get_currency(currency) |> Dict.get(:symbol)
-       _ -> nil
+      true -> get_currency(currency) |> Dict.get(:symbol)
+       _   -> nil
     end
   end
 
@@ -247,9 +245,9 @@ defmodule Money do
   @spec compare(t, t) :: t
   def compare(%Money{currency: cur1} = a, %Money{currency: cur1} = b) do
     case a.amount - b.amount do
-                    x when x>0 -> 1
-                    x when x<0 -> -1
-                    x when x==0 -> 0
+      x when x > 0  -> 1
+      x when x < 0  -> -1
+      x when x == 0 -> 0
     end
   end
 
@@ -331,10 +329,10 @@ defmodule Money do
 
   @spec to_string(t) :: String.t
   def to_string(%Money{} = m) do
-    symbol = currency_symbol(m)
-    super_unit = div(m.amount, 100) |> Integer.to_string |> reverse_group(3) |> Enum.join(",")
-    sub_unit = rem(abs(m.amount), 100) |> Integer.to_string |> String.rjust(2, ?0)
-    number = [super_unit, sub_unit] |> Enum.join(".")
+    symbol     = currency_symbol(m)
+    super_unit = div(m.amount, 100)      |> Integer.to_string |> reverse_group(3) |> Enum.join(",")
+    sub_unit   = rem(abs(m.amount), 100) |> Integer.to_string |> String.rjust(2, ?0)
+    number     = [super_unit, sub_unit]  |> Enum.join(".")
     [symbol, number] |> Enum.join |> String.lstrip
   end
 
